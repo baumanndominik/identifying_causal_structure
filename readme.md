@@ -1,6 +1,6 @@
 # Identifying Causal Structure in Dynamical Systems
 
-This repository is the official implementation of Identifying Causal Structure in Dynamical Systems. 
+This repository is the official implementation of the paper "Identifying Causal Structure in Dynamical Systems" by Dominik Baumann, Friedrich Solowjow, Karl Henrik Johansson, and Sebastian Trimpe. 
 
 ## Requirements
 
