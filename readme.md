@@ -1,10 +1,10 @@
 # Identifying Causal Structure in Dynamical Systems
 
-This repository is the official implementation of the paper "Identifying Causal Structure in Dynamical Systems" by Dominik Baumann, Friedrich Solowjow, Karl Henrik Johansson, and Sebastian Trimpe. 
+This repository is the official implementation of the [paper](https://arxiv.org/abs/2006.03906) "Identifying Causal Structure in Dynamical Systems" by Dominik Baumann, Friedrich Solowjow, Karl Henrik Johansson, and Sebastian Trimpe. 
 
 ## Requirements
 
-The code was developed for and tested in Python 3, but should also work with Python 2. The following libraries are required:
+The code was developed using Python 3.6.9, but also tested with Python 2.7. The following libraries are required:
 
 * numpy
 * scipy
@@ -36,7 +36,7 @@ $$
 | --- | --- | --- | --- | --- | --- | --- |
 | **x<sub>1</sub>** | 1 | 1 | 1 | 1 | 1 | 1|
 | **x<sub>2</sub>** | 0 | 1 | 1 | 1 | 1 | 1|
-| **x<sub>1</sub>** | 0 | 0 | 1 | 1 | 0 | 1|
+| **x<sub>3</sub>** | 0 | 0 | 1 | 1 | 0 | 1|
 
 ## Copyright
 

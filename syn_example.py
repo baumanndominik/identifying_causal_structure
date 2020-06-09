@@ -21,3 +21,6 @@ class synthetic_example:
 	def step(self, action):
 		self.state = np.dot(self.A, self.state) + np.dot(self.B, action) + np.random.normal(0, self.noise_stddev, (3,1))
 		return self.state
+
+	def reset(self):
+		self.state = np.zeros((3, 1))
