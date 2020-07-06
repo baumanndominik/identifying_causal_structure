@@ -48,7 +48,7 @@ def sys_id_loc(state, inp_traj, test_infl_of):
 	return [A, B, noise_stddev]
 
 # Monte Carlo simulation of a given system with given initial state and input trajectories
-def simulate_system(model, x0, u, num_exp=10000):
+def simulate_system(model, x0, u, num_exp=1000):
 	A, B, noise = model 
 	sys_dim = len(A[:,0])
 	noise_arr = np.random.normal(0, matlib.repmat(noise, num_exp, 1), (sys_dim*num_exp, len(u[0,:])))
@@ -65,7 +65,7 @@ def simulate_system(model, x0, u, num_exp=10000):
 	return x_st 
 
 # Get the test statistic of a system with initial conditions and input trajectories
-def get_test_statistic(model, x0_I, x0_II, u_I, u_II, num_exp=10000, nu=1):
+def get_test_statistic(model, x0_I, x0_II, u_I, u_II, num_exp=1000, nu=1):
 	sys_dim = len(model[0][:,0])
 	data_I = simulate_system(model, x0_I, u_I, num_exp=num_exp)
 	data_II = simulate_system(model, x0_II, u_II, num_exp=num_exp)

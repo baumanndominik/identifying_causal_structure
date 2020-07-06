@@ -8,7 +8,7 @@ def rbf(x,y,sigma=1.0):
 	H = np.multiply(y,y)
 	Q = matlib.repmat(G,len(y),1)
 	R = matlib.repmat(H,len(x),1)
-	H = Q + R.T - 2*x*y.T
+	H = Q + R.T - 2*x*y.reshape(-1, 1)
 	return np.exp(-H/(2*sigma**2))
 
 # Calculate the maximum mean discrepancy
