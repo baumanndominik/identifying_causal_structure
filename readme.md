@@ -24,14 +24,6 @@ The algorithm after each iteration prints a "causality matrix", i.e., a matrix, 
 
 After finishing, the final causality matrix the algorithm will be
 
-$$
-\begin{pmatrix}
-1 & 1 & 1 & 1 & 1\\
-0 & 1 & 1 & 1 & 1\\
-0 & 0 & 1 & 0 & 1
-\end{pmatrix}
-$$
-
 | | x<sub>1</sub> | x<sub>2</sub> | x<sub>3</sub> | u<sub>1</sub> | u<sub>2</sub> | u<sub>3</sub>|
 | --- | --- | --- | --- | --- | --- | --- |
 | **x<sub>1</sub>** | 1 | 1 | 1 | 1 | 1 | 1|
