@@ -25,9 +25,10 @@ python caus_id_linear.py
 ```
 for the linear synthetic example and
 
-'''
+```
 python caus_id_GP.py
-'''
+
+```
 
 for the quadruple tank system.
 
