@@ -1,7 +1,6 @@
 from util import mmd2
 from examples import mult_tank_system
 import numpy as np
-from IPython import embed as IPS
 import GPy
 import copy
 from multiprocessing import Pool, cpu_count
@@ -55,7 +54,7 @@ class GPmodel:
 			pass
 		# Fit and optimize GP model
 		model = GPy.core.gp.GP(X.T,Y.reshape(-1,1),ker,GPy.likelihoods.Gaussian(),inference_method=GPy.inference.latent_function_inference.ExactGaussianInference(),normalizer=True)
-		model.optimize(messages=True)
+		model.optimize()
 		return model 	
 
 # Predict MMD based on the GP model
@@ -104,13 +103,13 @@ def predict_mmd(GPs,sys,test_infl_of,test_infl_on,init_cond1,inp_traj1,init_cond
 				y_st[:,(i+1)*len(sys1.state)+idx] = y_st[:,i*len(sys1.state)+idx] + GP.model.predict(Y_tmp)[0]
 	# Calculate MMD
 	if num_var:
-		mmd = np.zeros((num_var,len(sys1.state)))
-		for i in range(len(sys1.state)):
+		mmd = np.zeros((num_var,len(test_infl_on)))
+		for idx, i in enumerate(test_infl_on):
 			if i == test_infl_of:
 				x_st[:,i::len(sys1.state)] -= init_cond1[i]
 				y_st[:,i::len(sys1.state)] -= init_cond2[i]
 			for j in range(num_var):
-				mmd[j,i] = mmd2(x_st[num_exp*j:num_exp*j+num_exp,i::len(sys1.state)].flatten(),y_st[num_exp*j:num_exp*j+num_exp,i::len(sys1.state)].flatten())
+				mmd[j,idx] = mmd2(x_st[num_exp*j:num_exp*j+num_exp,i::len(sys1.state)].flatten(),y_st[num_exp*j:num_exp*j+num_exp,i::len(sys1.state)].flatten())
 		mmd = np.std(mmd,axis=0)
 	else:
 		mmd = np.zeros(len(test_infl_on))
@@ -225,11 +224,10 @@ if __name__ == '__main__':
 	num_tests = len(sys1.state) + sys1.inp_dim
 	test_infl_of = [0,2,4,6,8,9]
 	test_infl_on = [0,2,4,6]
-	for el in test_infl_of:
+	caus = np.zeros((len(test_infl_on), len(test_infl_of)))
+	for idx1, el in enumerate(test_infl_of):
 		indep_el = check_struct(GPs,sys1,sys2,data,el,test_infl_on)
-		print(indep_el)
-		try:
-			indep = np.vstack((indep,indep_el))
-		except:
-			indep = indep_el
-		print(indep)
+		for idx2, ind in enumerate(indep_el):
+			caus[idx2, idx1] = ind
+		print("new causality matrix:")
+		print(caus)

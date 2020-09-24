@@ -1,4 +1,5 @@
-import numpy as np 
+import numpy as np
+from util import rk4 
 
 '''
 A synthetic, linear example to test the causal structure identification
