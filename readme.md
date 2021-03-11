@@ -54,7 +54,3 @@ for the synthetic example and
 | **x<sub>4</sub>** | 0 | 0 | 0 | 1 | 1 | 0|
 
 for the quadruple tank system
-
-## Copyright
-
-Copyright (c) 2020 Max Planck Gesellschaft
