@@ -67,7 +67,7 @@ class tank_system:
 				ret2 += (tank.a/self.A)*np.sqrt(2*self.g*tank.x1)
 		except:
 			pass
-		return np.array([[ret1,ret2]])
+		return np.array([[ret1,ret2]], dtype=float)
 
 '''
 System with multiple tanks

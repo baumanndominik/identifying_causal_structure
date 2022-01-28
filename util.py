@@ -13,14 +13,12 @@ def rbf(x,y,sigma=1.0):
 
 # Calculate the maximum mean discrepancy
 def mmd2(x,y):
-	max_val = np.max(np.append(np.abs(x),np.abs(y)))
-	if max_val > 0:
-		x = x/max_val
-		y = y/max_val
-	num_samples = float(np.min([len(x),len(y)]))
-	K = rbf(x,x)
-	L = rbf(y,y)
-	KL = rbf(x,y)
+	xy = np.hstack((x, y)).reshape(-1, 1)
+	sigma = np.median(scipy.spatial.distance.cdist(xy, xy))/2
+	num_samples = float(np.min([len(x), len(y)]))
+	K = rbf(x, x, sigma=sigma)
+	L = rbf(y, y, sigma=sigma)
+	KL = rbf(x, y, sigma=sigma)
 	np.fill_diagonal(K,0)
 	np.fill_diagonal(L,0)
 	np.fill_diagonal(KL,0)

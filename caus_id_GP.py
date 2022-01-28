@@ -161,7 +161,7 @@ def real_mmd(sys,test_infl_of,test_infl_on,init_cond1,inp_traj1,init_cond2=0,inp
 	return mmd, x_st, y_st
 
 # Get the causal structure of the system
-def check_struct(GPs,sys1,sys2,id_data,test_infl_of,test_infl_on):
+def check_struct(GPs,sys1,sys2,id_data,test_infl_of,test_infl_on,nu=10):
 	init_cond1 = []
 	init_cond2 = []
 	GPs_test = GPs
@@ -199,12 +199,12 @@ def check_struct(GPs,sys1,sys2,id_data,test_infl_of,test_infl_on):
 		e_mmd, _, _ = predict_mmd(GPs_test,sys1,test_infl_of,test_infl_on,init_cond1,inp_traj.T,inp_traj2=inp_traj2.T)
 		e_mmd_init, _, _ = predict_mmd(GPs,sys1,test_infl_of,test_infl_on,init_cond1,inp_traj.T,inp_traj2=inp_traj2.T)
 		exp_mmd, real_x, real_y = real_mmd(sys2,test_infl_of,test_infl_on,init_cond1,inp_traj.T,inp_traj2=inp_traj2.T,num_exp=num_exp)
-	return exp_mmd > e_mmd + 10*std_mmd
+	return exp_mmd > e_mmd + nu*std_mmd
 
 def create_multi_tank_system():
 	# Create quadruple tank system (4 tanks, 2 inputs)
 	num_tanks = 4
-	connections = np.array([[2],[3],[],[]])
+	connections = np.array([[2],[3],[],[]],dtype=object)
 	inp_dim = 2
 	inp_mapping = np.array([[0],[1],[1],[0]])
 	multi_tank = mult_tank_system(num_tanks,connections,inp_dim,inp_mapping)

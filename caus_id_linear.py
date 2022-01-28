@@ -42,10 +42,7 @@ def sys_id_loc(state, inp_traj, test_infl_of):
 	res = np.insert(res,test_infl_of,0,axis=1)
 	A = res[0:len(state),0:len(state)]
 	B = res[0:len(state),len(state)::]
-	noise_stddev = np.zeros((len(A[:,0]),1))
-	for i in range (len(A[:,0])):
-		noise_stddev[i,0] = np.sqrt(np.sum((state[i, 1:-1]-np.dot(res[i, :],data))**2)/(len(state[0, :])-1))
-	return [A, B, noise_stddev]
+	return [A, B]
 
 # Monte Carlo simulation of a given system with given initial state and input trajectories
 def simulate_system(model, x0, u, num_exp=1000):
@@ -148,8 +145,9 @@ def caus_id():
 		exp_data_I, exp_data_II = caus_exp(init_model, sys, x0_I, x0_II, u_I, u_II, ctrl)
 		# Get model assuming variables are non-causal
 		caus_model = sys_id_loc(sys_id_state, sys_id_inp, test_infl_of)
+		caus_model.append(init_model[2])
 		# Get test statistic
-		test_stat = get_test_statistic(caus_model, exp_data_I[:, 0].reshape(-1, 1), exp_data_II[:, 0].reshape(-1, 1), u_I, u_II, nu=3)
+		test_stat = get_test_statistic(caus_model, exp_data_I[:, 0].reshape(-1, 1), exp_data_II[:, 0].reshape(-1, 1), u_I, u_II, nu=5)
 		print("Obtained test statistic")
 		# Compute MMD and compare with test statistic
 		for test_infl_on in range(sys_dim):
