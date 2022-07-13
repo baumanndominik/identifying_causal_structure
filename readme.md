@@ -1,20 +1,28 @@
 # Identifying Causal Structure in Dynamical Systems
 
-This repository is the official implementation of the [paper](https://arxiv.org/abs/2006.03906) "Identifying Causal Structure in Dynamical Systems" by Dominik Baumann, Friedrich Solowjow, Karl Henrik Johansson, and Sebastian Trimpe. 
+This repository contains an algorithm for automatically identifying the causal structure of a dynamical system. The algorithm is implemented for a synthetic, linear example and a nonlinear quadruple tank system. A description of the method can be found in:
+
+* Dominik Baumann, Friedrich Solowjow, Karl Henrik Johansson, and Sebastian Trimpe, "Identifying causal structure in dynamical systems," Transactions on Machine Learning Research, 2022, [arXiv](https://arxiv.org/abs/2006.03906).
 
 ## Requirements
 
-The code was developed using Python 3.6.9. caus_id_linear was also tested with Python 2.7. The following libraries are required:
+The code was developed using Python 3.8.10. The following libraries are required:
 
-* numpy
-* scipy
-* copy
-* GPy
+* numpy (tested with version 1.23.1)
+* scipy (tested with version 1.8.0)
+* GPy (tested with version 1.10.0)
 
-If you want to use parallel computing for estimating the GP models, the following libraries are additionally required:
+## Examples
 
-* multiprocessing
-* itertools
+We provide to examples: a synthetic, linear example, and a nonlinear quadruple tank system.
+
+### Synthetic linear example
+
+The synthetic linear example serves as a proof of concept at low compute time. We estimate a linear state-space model for the system using least-squares and then subsequently identify its causal structure. For each experiment, we steer the system to its initial condition instead of just setting them in the code to be more realistic.
+
+### Quadruple tank system
+
+For the quadruple tank system, we estimate a Gaussian process (GP) model. For the paper, this was achieved using parallel computing. To simplify running the algorithm and enhance reproducibility, we here provide an implementation without parallel computing and less data used to learn the GP model, which reduces the computational demand of GP inference. This leads to slightly higher test statistics as reported in the paper, but the qualitative results are the same.
 
 ## Execution
 
